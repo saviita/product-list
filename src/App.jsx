@@ -3,10 +3,9 @@ import { PRODUCTS } from './constants/products';
 
 const App = () => {
 	const [sortBy, setSortBy] = useState(0);
-	const [cart, setCart] = useState(0)
+	const [cart, setCart] = useState([]);
 
 	const sortedProducts = sortProducts(PRODUCTS, sortBy);
-	const cartProducts = 
 
 	return (
 		<>
@@ -32,7 +31,9 @@ const App = () => {
 								<source media='(min-width: 320px)' srcSet={product.imgMobile} />
 								<img src={product.imgMobile} alt='' />
 							</picture>
-							<button onClick={() => addToCart(product, cart, setCart)}>Add to cart</button>
+							<button onClick={() => addToCart(product, cart, setCart)}>
+								Add to cart
+							</button>
 							<div>
 								<button>
 									<img
@@ -60,9 +61,7 @@ const App = () => {
 				<section>
 					<h3>Your cart</h3>
 					<img src='/assets/images/illustration-empty-cart.svg' alt='' />
-					<div>
-
-					</div>
+					<div></div>
 
 					<div>
 						<span>Total order</span>
@@ -87,8 +86,8 @@ const sortProducts = (products, sortBy) => {
 };
 
 const addToCart = (product, cart, setCart) => {
-	setCart([...cart, product])
-
-}
+	setCart([...cart, product]);
+	console.log(cart);
+};
 
 export default App;
