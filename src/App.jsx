@@ -6,7 +6,7 @@ const App = () => {
 	const [cart, setCart] = useState([]);
 
 	const sortedProducts = sortProducts(PRODUCTS, sortBy);
-
+	console.log(cart);
 	return (
 		<>
 			<header>
@@ -20,12 +20,12 @@ const App = () => {
 
 			<main>
 				<section>
-					{sortedProducts.map(product => (
+					{sortedProducts.map(product => {
 						const productInCart = cart.find(
 							itemInCart => itemInCart.id === product.id
 						);
 
-						<article key={product.id}>
+						return <article key={product.id}>
 							<picture>
 								<source
 									media='(min-width: 1024px)'
@@ -40,7 +40,6 @@ const App = () => {
 							}	
 
 							{productInCart &&
-							<>
 							<div>
 								<button onClick={() => decrementQuantity(product, cart, setCart)}>
 									<img
@@ -56,30 +55,39 @@ const App = () => {
 										/>
 								</button>
 							</div>
+									}
 							<div>
 								<span>{product.name}</span>
 								<h2>{product.title}</h2>
 								<span>{product.price}</span>
 							</div>
-							</>
+
 							
-							}
 						</article>
-					))}
 				</section>
 
 				<section>
-					<h3>Your cart</h3>
-					{}
-					<img src='/assets/images/illustration-empty-cart.svg' alt='' />
+					<h3>Your cart ({cart.length})</h3>
+					{!productInCart && 
+					<img src='/assets/images/illustration-empty-cart.svg' alt='' />}
 
-					<div>
-						<span>Total order</span>
-						<span>$46.50</span>
-					</div>
+					{productInCart &&
 
-					<button>Confirm order</button>
+					cart.map(product => {
+						return <>
+							<div>
+								<h3>{product.name} </h3>
+								<span>{product.quantity}</span>
+								<span>{product.price}</span>
+								<span>{product.price * product.quantity}</span>
+							</div>
+							<img onClick={() => removeFromCart(product, cart, setCart)} src="/public/assets/images/icon-remove-item.svg" alt="" />
+						</>
+					})
+					
+					}
 				</section>
+				})}
 			</main>
 		</>
 	);
@@ -97,7 +105,7 @@ const sortProducts = (products, sortBy) => {
 
 const addToCart = (product, cart, setCart) => {
 	setCart([...cart, {...product, quantity: 1}]);
-	console.log(cart);
+	
 };
 
 const removeFromCart = (product, cart, setCart) => {
@@ -110,8 +118,9 @@ const incrementQuantity = (product, cart, setCart) => {
 	const updateCart = cart.map(productInCart => {
 		if (productInCart.id === product.id)
 			productInCart.quantity++;
-		}
-	)
+		
+		return productInCart;
+	})
 
 	setCart(updateCart)
 }
@@ -120,6 +129,8 @@ const decrementQuantity = (product, cart, setCart) => {
 	const updateCart = cart.map(productInCart => {
 		if (productInCart.id === product.id)
 			productInCart.quantity--;
+
+		return productInCart
 		}
 	)
 
