@@ -21,6 +21,10 @@ const App = () => {
 			<main>
 				<section>
 					{sortedProducts.map(product => (
+						const productInCart = cart.find(
+							itemInCart => itemInCart.id === product.id
+						);
+
 						<article key={product.id}>
 							<picture>
 								<source
@@ -31,22 +35,25 @@ const App = () => {
 								<source media='(min-width: 320px)' srcSet={product.imgMobile} />
 								<img src={product.imgMobile} alt='' />
 							</picture>
-							<button onClick={() => addToCart(product, cart, setCart)}>
-								Add to cart
-							</button>
+							{!productInCart && 
+								<button onClick={() => addToCart(product, cart, setCart)}>Add to cart</button>
+							}	
+
+							{productInCart &&
+							<>
 							<div>
-								<button>
+								<button onClick={() => decrementQuantity(product, cart, setCart)}>
 									<img
 										src='/assets/images/icon-decrement-quantity.svg'
 										alt=''
-									/>
+										/>
 								</button>
-								<span>1</span>
-								<button>
+								<span>{product.quantity}</span>
+								<button onClick={() => incrementQuantity(product, cart, setCart)}>
 									<img
 										src='/assets/images/icon-increment-quantity.svg'
 										alt=''
-									/>
+										/>
 								</button>
 							</div>
 							<div>
@@ -54,14 +61,17 @@ const App = () => {
 								<h2>{product.title}</h2>
 								<span>{product.price}</span>
 							</div>
+							</>
+							
+							}
 						</article>
 					))}
 				</section>
 
 				<section>
 					<h3>Your cart</h3>
+					{}
 					<img src='/assets/images/illustration-empty-cart.svg' alt='' />
-					<div></div>
 
 					<div>
 						<span>Total order</span>
@@ -86,8 +96,34 @@ const sortProducts = (products, sortBy) => {
 };
 
 const addToCart = (product, cart, setCart) => {
-	setCart([...cart, product]);
+	setCart([...cart, {...product, quantity: 1}]);
 	console.log(cart);
 };
+
+const removeFromCart = (product, cart, setCart) => {
+	const updateCart = cart.filter(productInCart => productInCart.id !== product.id)
+
+	setCart(updateCart)
+}
+
+const incrementQuantity = (product, cart, setCart) => {
+	const updateCart = cart.map(productInCart => {
+		if (productInCart.id === product.id)
+			productInCart.quantity++;
+		}
+	)
+
+	setCart(updateCart)
+}
+
+const decrementQuantity = (product, cart, setCart) => {
+	const updateCart = cart.map(productInCart => {
+		if (productInCart.id === product.id)
+			productInCart.quantity--;
+		}
+	)
+
+	setCart(updateCart)
+}
 
 export default App;
