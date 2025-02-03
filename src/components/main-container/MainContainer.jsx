@@ -1,5 +1,7 @@
+import { StyledMain } from './main-Container.styles';
+
 const MainContainer = ({ children }) => {
-	return <MainContainer>{children}</MainContainer>;
+	return <StyledMain>{children}</StyledMain>;
 };
 
 export default MainContainer;

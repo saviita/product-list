@@ -1,36 +1,64 @@
+import {
+	StyledImg,
+	StyledAdd,
+	StyledType,
+	StyledName,
+	StyledPrice,
+	StyledInfo,
+	StyledArticle,
+	StyledIconCart,
+	StyledDivQuantity,
+	StyledQuantity,
+	StyledIconQuantity
+} from './product.styles';
+
 const Product = ({ product, cart, setCart, productInCart }) => {
 	return (
-		<article>
+		<StyledArticle>
 			<picture>
 				<source media='(min-width: 1024px)' srcSet={product.imgDesktop} />
 				<source media='(min-width: 768px)' srcSet={product.imgTablet} />
 				<source media='(min-width: 320px)' srcSet={product.imgMobile} />
-				<img src={product.imgMobile} alt='' />
+				<StyledImg src={product.imgMobile} alt='' />
 			</picture>
 			{!productInCart && (
-				<button onClick={() => addToCart(product, cart, setCart)}>
+				<StyledAdd onClick={() => addToCart(product, cart, setCart)}>
+					<StyledIconCart
+						src='/public/assets/images/icon-add-to-cart.svg'
+						alt=''
+					/>{' '}
 					Add to cart
-				</button>
+				</StyledAdd>
 			)}
 
 			{productInCart && (
-				<div>
-					<button onClick={() => decrementQuantity(product, cart, setCart)}>
-						<img src='/assets/images/icon-decrement-quantity.svg' alt='' />
-					</button>
-					<span>{product.quantity}</span>
-					<button onClick={() => incrementQuantity(product, cart, setCart)}>
-						<img src='/assets/images/icon-increment-quantity.svg' alt='' />
-					</button>
-				</div>
+				<StyledDivQuantity>
+					<StyledQuantity
+						onClick={() => decrementQuantity(product, cart, setCart)}
+					>
+						<StyledIconQuantity
+							src='/assets/images/icon-decrement-quantity.svg'
+							alt=''
+						/>
+					</StyledQuantity>
+					<span>{productInCart.quantity}</span>
+					<StyledQuantity
+						onClick={() => incrementQuantity(product, cart, setCart)}
+					>
+						<StyledIconQuantity
+							src='/assets/images/icon-increment-quantity.svg'
+							alt=''
+						/>
+					</StyledQuantity>
+				</StyledDivQuantity>
 			)}
 
-			<div>
-				<span>{product.name}</span>
-				<h2>{product.title}</h2>
-				<span>{product.price}</span>
-			</div>
-		</article>
+			<StyledInfo>
+				<StyledType>{product.name}</StyledType>
+				<StyledName>{product.title}</StyledName>
+				<StyledPrice>${product.price}</StyledPrice>
+			</StyledInfo>
+		</StyledArticle>
 	);
 };
 
