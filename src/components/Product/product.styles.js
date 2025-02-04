@@ -10,6 +10,8 @@ const StyledImg = styled.img`
 `;
 
 const StyledAdd = styled.button`
+	position: relative;
+	top: -20px;
 	width: 160px;
 	padding: 12px;
 	display: flex;
@@ -56,11 +58,14 @@ const StyledInfo = styled.div`
 `;
 
 const StyledDivQuantity = styled.div`
+	position: relative;
+	top: -20px;
 	width: 160px;
 	padding: 12px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-self: center;
 	background-color: #c73b0f;
 	border-radius: 50px;
 	color: white;
