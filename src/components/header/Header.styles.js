@@ -14,9 +14,11 @@ const StyledFilter = styled.div`
 const StyledButton = styled.button`
 	border: 1px solid #c73b0f;
 	border-radius: 50px;
-	background-color: white;
 	width: 100px;
 	height: 34px;
+	color: ${({ $sortBy, $number }) => ($sortBy === $number ? 'white' : 'black')};
+	background-color: ${({ $sortBy, $number }) =>
+		$sortBy === $number ? '#c73b0f' : 'white'};
 `;
 
 const StyledHeader = styled.header`

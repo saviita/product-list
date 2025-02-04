@@ -7,6 +7,8 @@ const StyledArticle = styled.article`
 
 const StyledImg = styled.img`
 	border-radius: 8px;
+	border: ${({ $productInCart }) =>
+		$productInCart ? '2px solid #c73b0f' : 'none'};
 `;
 
 const StyledAdd = styled.button`

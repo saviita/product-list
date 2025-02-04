@@ -1,10 +1,11 @@
 import { PRODUCTS } from '../../constants/products';
 import Product from '../Product/Product';
+import { StyledProducts } from './products.styles';
 
 const Products = ({ cart, setCart, sortBy }) => {
 	const sortedProducts = sortProducts(PRODUCTS, sortBy);
 	return (
-		<>
+		<StyledProducts>
 			{sortedProducts.map(product => {
 				const productInCart = cart.find(
 					itemInCart => itemInCart.id === product.id
@@ -19,7 +20,7 @@ const Products = ({ cart, setCart, sortBy }) => {
 					/>
 				);
 			})}
-		</>
+		</StyledProducts>
 	);
 };
 export default Products;

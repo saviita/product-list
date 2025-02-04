@@ -19,7 +19,11 @@ const Product = ({ product, cart, setCart, productInCart }) => {
 				<source media='(min-width: 1024px)' srcSet={product.imgDesktop} />
 				<source media='(min-width: 768px)' srcSet={product.imgTablet} />
 				<source media='(min-width: 320px)' srcSet={product.imgMobile} />
-				<StyledImg src={product.imgMobile} alt='' />
+				<StyledImg
+					$productInCart={productInCart}
+					src={product.imgMobile}
+					alt=''
+				/>
 			</picture>
 			{!productInCart && (
 				<StyledAdd onClick={() => addToCart(product, cart, setCart)}>
@@ -56,7 +60,7 @@ const Product = ({ product, cart, setCart, productInCart }) => {
 			<StyledInfo>
 				<StyledType>{product.name}</StyledType>
 				<StyledName>{product.title}</StyledName>
-				<StyledPrice>${product.price}</StyledPrice>
+				<StyledPrice>${product.price.toFixed(2)}</StyledPrice>
 			</StyledInfo>
 		</StyledArticle>
 	);
@@ -69,21 +73,46 @@ const addToCart = (product, cart, setCart) => {
 };
 
 const incrementQuantity = (product, cart, setCart) => {
-	const updateCart = cart.map(productInCart => {
-		if (productInCart.id === product.id) productInCart.quantity++;
+	// const updateCart = cart.map(productInCart => {
+	// 	if (productInCart.id === product.id) productInCart.quantity++;
 
-		return productInCart;
-	});
+	// 	return productInCart;
+	// });
 
-	setCart(updateCart);
+	// setCart(updateCart);
+
+	const productToUpdate = cart.find(cartItem => cartItem.id === product.id);
+
+	if (!productToUpdate) return;
+
+	if (productToUpdate.quantity > 0) {
+		productToUpdate.quantity++;
+		setCart([...cart]);
+		return;
+	}
 };
 
 const decrementQuantity = (product, cart, setCart) => {
-	const updateCart = cart.map(productInCart => {
-		if (productInCart.id === product.id) productInCart.quantity--;
+	// const updateCart = cart.map(productInCart => {
+	// 	if (productInCart.id === product.id) {
+	// 		if (productInCart.quantity > 1) {
+	// 			productInCart.quantity--;
+	// 		} else {
+	// 		}
+	// 	}
 
-		return productInCart;
-	});
+	// 	return productInCart;
+	// });
 
-	setCart(updateCart);
+	const productToUpdate = cart.find(cartItem => cartItem.id === product.id);
+
+	if (!productToUpdate) return;
+
+	if (productToUpdate.quantity > 1) {
+		productToUpdate.quantity--;
+		setCart([...cart]);
+		return;
+	}
+
+	// setCart(updateCart);
 };

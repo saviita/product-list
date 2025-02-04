@@ -65,6 +65,17 @@ const StyledButtonOrder = styled.button`
 	font-size: 14px;
 `;
 
+const StyledTotal = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+const StyledTotalProductsPrice = styled.span`
+	color: #260f08;
+	font-size: 24px;
+	font-weight: 700;
+`;
+
 export {
 	StyledTitle,
 	StyledCart,
@@ -74,5 +85,7 @@ export {
 	StyledProductQuantity,
 	StyledUnityPrice,
 	StyledTotalPrice,
-	StyledButtonOrder
+	StyledButtonOrder,
+	StyledTotalProductsPrice,
+	StyledTotal
 };
